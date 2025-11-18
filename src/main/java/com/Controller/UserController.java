@@ -1,18 +1,35 @@
 package com.Controller;
 
-import com.DTO.UserDTO;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+// import com.DTO.UserDetails;
 import com.Entity.User;
 import com.Service.UserService;
+import com.security.JwtUtil;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
 	
+	@Autowired
+	AuthenticationManager authenticationManager;
+
+	@Autowired
+	UserDetailsService userDetailsService;
+	@Autowired
+	JwtUtil jwtUtil;
+
 	@Autowired
 	UserService userService;
 	@PostMapping("/register")
@@ -20,12 +37,27 @@ public class UserController {
 		return userService.registerUser(user);
 	}
 
-    @GetMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserDTO user) {
-//        This functionality yet to be implemented
-        return new ResponseEntity<>("", HttpStatus.OK);
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+            );
+
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+            String jwt = jwtUtil.generateToken(userDetails.getUsername());
+            Map<String,String> response = new HashMap<>();
+            String role = userDetails.getAuthorities().stream()
+                    .findFirst()
+                    .map(grantedAuthority -> grantedAuthority.getAuthority())
+                    .orElse("EMPLOYEE");
+            response.put("token", jwt);
+            response.put("role",role);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized User!");
+        }
     }
-//   @PostMapping("/account-request")
 
 
 }
