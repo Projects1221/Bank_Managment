@@ -4,13 +4,13 @@ package com.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.Service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 // import com.DTO.UserDetails;
@@ -26,7 +26,7 @@ public class UserController {
 	AuthenticationManager authenticationManager;
 
 	@Autowired
-	UserDetailsService userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	JwtUtil jwtUtil;
 
@@ -44,7 +44,7 @@ public class UserController {
                     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
             String jwt = jwtUtil.generateToken(userDetails.getUsername());
             Map<String,String> response = new HashMap<>();
             String role = userDetails.getAuthorities().stream()

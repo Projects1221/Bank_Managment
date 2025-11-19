@@ -18,7 +18,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
     
-    private String secret_key = "MY_SECURITY_@BANK_*%mANAGMENT";
+    private String secret_key = "MY_SECURITY_@BANK_*%mANAGMENT_13265479_SystEm_#$%^ty";
 
     private SecretKey getSignKey()
     {
