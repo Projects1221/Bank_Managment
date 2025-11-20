@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function RegisterUser() {
   let [data, setData] = useState({
-    name:"",
+    username:"",
     email: "",
     password: "",
     role:"CUSTOMER"
@@ -48,8 +48,8 @@ export default function RegisterUser() {
           <input
             type="text"
             className="form-control"
-            id="name"
-            name="name"
+            id="username"
+            name="username"
             placeholder="Enter username"
             onChange={handleChange}
             required

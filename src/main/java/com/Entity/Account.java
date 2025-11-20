@@ -26,5 +26,8 @@ public class Account {
     private String status;
     private Date created_at;
     private Date updated_at;
+    @OneToOne
+    @JoinColumn(name="accReqId")
+    private AccountRequest accountRequest;
 
 }
