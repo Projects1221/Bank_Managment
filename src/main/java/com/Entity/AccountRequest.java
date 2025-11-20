@@ -20,7 +20,7 @@ public class AccountRequest {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String accountType; // (SAVINGS/CURRENT)
+    private String accountType;
     private String address;
     private Date dob;
     private long aadharNumber;
