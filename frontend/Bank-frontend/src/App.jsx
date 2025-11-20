@@ -5,9 +5,9 @@ import Login from "./Component/Login";
 import AdminDashboard from "./Component/AdminDashboard";
 import UserDashboard from "./Component/UserDashboard";
 import RegisterUser from './Component/RegisterUser';
+import AccountReqForm from './Component/AccountReqForm';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
      <BrowserRouter>
@@ -16,6 +16,10 @@ function App() {
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/user" element={<UserDashboard />} />
+
+        {/* User Servicess */}
+        <Route path="/account-req" element={<AccountReqForm />} />
+
       </Routes>
     </BrowserRouter>
   )
