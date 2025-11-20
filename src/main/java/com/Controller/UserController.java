@@ -50,7 +50,7 @@ public class UserController {
             String role = userDetails.getAuthorities().stream()
                     .findFirst()
                     .map(grantedAuthority -> grantedAuthority.getAuthority())
-                    .orElse("EMPLOYEE");
+                    .orElse("CUSTOMER");
             response.put("token", jwt);
             response.put("role",role);
             return new ResponseEntity<>(response, HttpStatus.OK);
