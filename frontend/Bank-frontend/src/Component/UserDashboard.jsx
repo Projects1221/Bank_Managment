@@ -1,8 +1,10 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserNavbar from "./UserNavbar";
+import { useNavigate } from "react-router-dom";
 
 export default function UserDashboard() {
+  const navigate = useNavigate();
   return (
     <>
   <UserNavbar/>
@@ -38,7 +40,8 @@ export default function UserDashboard() {
           <button className="btn btn-primary shadow-sm"><i className="fas fa-exchange-alt"></i> Transfer Money</button>
           <button className="btn btn-success shadow-sm"><i className="fas fa-file-download"></i> Download Statement</button>
           <button className="btn btn-secondary shadow-sm"><i className="fas fa-user-plus"></i> Add Beneficiary</button>
-        </div>
+          <button className="btn custom-new shadow-sm" onClick={() => navigate("/account-req")}><i className="fas fa-user-plus"></i> New Account Request</button>
+      </div>
       </div>
 
       {/* Recent Transactions */}
