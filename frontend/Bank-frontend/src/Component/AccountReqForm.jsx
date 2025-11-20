@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export default function AccountReqForm() {
 
     const [aadharNumber,setAadharNumber] = useState("");
-    const [panNumber,setPanNuber] = useState("");
+    const [panNumber,setPanNumber] = useState("");
     const [occupation,setOccupation] = useState("");
     const [dob,setDob] = useState("");
     const [address,setAddress] = useState("");
@@ -25,10 +25,10 @@ export default function AccountReqForm() {
 
     const handleAccount= async (e) =>{
         e.preventDefault();
-
         try{
-            const response = await api.post("/request/create-account",info, {headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`}});
+          const response = await api.post("/request/create-account",info, {headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`}});
             alert(response.data);
+            navigate("/user");
         }catch(error){
             alert(error);
         }
@@ -54,6 +54,8 @@ export default function AccountReqForm() {
                     className="form-control w-75 text-center"
                     placeholder="Enter Aadhar Number"
                     required
+                    value={aadharNumber}
+                    onChange={(e)=>{setAadharNumber(e.target.value)}}
                   />
                 </div>
               </div>
@@ -68,6 +70,8 @@ export default function AccountReqForm() {
                     className="form-control w-75 text-center"
                     placeholder="Enter PAN Number"
                     required
+                    value={panNumber}
+                    onChange={(e)=>{setPanNumber(e.target.value)}}
                   />
                 </div>
               </div>
@@ -76,8 +80,8 @@ export default function AccountReqForm() {
               <div className="mb-3 text-start">
                 <label className="form-label fw-semibold">Type of Account</label>
       
-                <div className="d-flex justify-content-center">
-                  <select className="form-select w-75 text-center" required>
+                <div className="d-flex justify-content-center" >
+                  <select className="form-select w-75 text-center"  value={accountType} onChange={(e)=> {setAccountType(e.target.value)}} required>
                     <option value="">Select Account Type</option>
                     <option value="saving">Saving Account</option>
                     <option value="current">Current Account</option>
@@ -95,6 +99,8 @@ export default function AccountReqForm() {
                     placeholder="Enter Address"
                     rows="3"
                     required
+                    value={address}
+                    onChange={(e)=>setAddress(e.target.value)}
                   ></textarea>
                 </div>
               </div>
@@ -108,6 +114,8 @@ export default function AccountReqForm() {
                     type="date"
                     className="form-control w-75 text-center"
                     required
+                    value={dob}
+                    onChange={e=>setDob(e.target.value)}
                   />
                 </div>
               </div>
@@ -122,13 +130,15 @@ export default function AccountReqForm() {
                     className="form-control w-75 text-center"
                     placeholder="Your Occupation"
                     required
+                    value={occupation}
+                    onChange={e=>setOccupation(e.target.value)}
                   />
                 </div>
               </div>
       
               {/* Buttons */}
               <div className="d-flex justify-content-center gap-3 mt-4">
-                <button type="submit" className="btn btn-primary px-4">
+                <button type="submit" className="btn btn-primary px-4" >
                   Submit
                 </button>
       
