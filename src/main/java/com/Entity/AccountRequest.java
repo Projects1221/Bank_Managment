@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,10 +19,11 @@ public class AccountRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String accountType; // (SAVINGS/CURRENT)
+    private String accountType;
     private String address;
     private Date dob;
     private long aadharNumber;

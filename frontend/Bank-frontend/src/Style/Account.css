@@ -1,0 +1,100 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .Account_container {
+    background: #ffffff;
+    width: 380px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #005bea;
+  }
+  
+  .bank-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bank-form label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  .bank-form input,
+  .bank-form textarea,
+  .bank-form select {
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    outline: none;
+    transition: 0.2s;
+  }
+  
+  .bank-form input:focus,
+  .bank-form textarea:focus,
+  .bank-form select:focus {
+    border-color: #005bea;
+    box-shadow: 0 0 5px rgba(0, 91, 234, 0.3);
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .submit-btn,
+  .reset-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 48%;
+  }
+  
+  .submit-btn {
+    background: #005bea;
+    color: white;
+  }
+  
+  .submit-btn:hover {
+    background: #004bb4;
+  }
+  
+  .reset-btn {
+    background: #ff5252;
+    color: white;
+  }
+  
+  .reset-btn:hover {
+    background: #d64040;
+  }
+  
+
+
+  .custom-new {
+    background: linear-gradient(45deg, #005bea, #00c6fb) !important;
+    color: white !important;
+    border: none !important;
+  }
+  
+  
+  
+  
+  
+  

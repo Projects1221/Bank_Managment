@@ -4,11 +4,14 @@ import "../Style/Login.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
   let [data, setData] = useState({
     email: "",
     password: ""
   });
+
   const navigate = useNavigate();
+  
   const handleChange = (e) => {
     setData((prev) => ({
       ...prev,
@@ -23,6 +26,9 @@ export default function Login() {
       const response = await api.post("/api/login", data);
 
       const role = response.data.role;
+
+      localStorage.token=response.data.token;
+      localStorage.role = response.data.role;
 
       if (role === "ROLE_ADMIN") {
         navigate("/admin");
@@ -77,7 +83,7 @@ export default function Login() {
         </div>
 
         <div className="d-flex justify-content-center align-items-center">
-     <button type="button" onClick={ ()=>{navigate("/")}} className=" me-3 btn btn-success w-50">
+     <button type="button" onClick={()=>{navigate("/register")}} className=" me-3 btn btn-success w-50">
           Sign Up
     </button>
     <button type="submit" className="ms-3 btn btn-secondary w-50">
