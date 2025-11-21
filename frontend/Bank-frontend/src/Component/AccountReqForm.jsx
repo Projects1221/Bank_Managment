@@ -27,7 +27,6 @@ export default function AccountReqForm() {
         e.preventDefault();
         try{
           const response = await api.post("/request/create-account",info, {headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`}});
-            // alert(response.data);
             alert(response.data);
             navigate("/user");
         }catch(error){
