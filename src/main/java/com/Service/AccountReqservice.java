@@ -4,6 +4,7 @@ import com.Entity.AccountRequest;
 import com.Entity.User;
 import com.Repository.AccountReqRepo;
 import com.Repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AccountReqservice {
@@ -34,5 +37,18 @@ public class AccountReqservice {
         }
     }
 
-    
+    public ResponseEntity<?> findAllPendingReq(){
+        List<AccountRequest> allRequest = accountReqRepo.findAll();
+        List<AccountRequest> pendingRequest = new ArrayList<>();
+        for(AccountRequest acc : allRequest){
+            if(acc.getRequestStatus().equals("PENDING")){
+                pendingRequest.add(acc);
+            }
+        }
+        if(pendingRequest.size()!=0){
+            return new ResponseEntity<>(pendingRequest,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("No Pending Request",HttpStatus.OK);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.Controller;
 
+import com.Service.AccountReqservice;
 import com.Service.AdminService;
 import com.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,18 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private AccountReqservice accountReqservice;
+
     @GetMapping
     public ResponseEntity<?> getUser(){
         return adminService.getAllUsers();
     }
+
+    @GetMapping("/pending-request")
+    public ResponseEntity<?> getPendingRequest(){
+        return accountReqservice.findAllPendingReq();
+    }
+    
 }

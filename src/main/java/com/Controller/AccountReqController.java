@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountReqController {
     @Autowired
     private AccountReqservice accountReqservice;
+
     @PostMapping("/create-account")
     public ResponseEntity<?> createAccount(@RequestBody AccountRequest accountRequest) {
         return accountReqservice.createAccountReq(accountRequest);
     }
+
 }
