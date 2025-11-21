@@ -40,7 +40,7 @@ export default function UserDashboard() {
           <button className="btn btn-primary shadow-sm"><i className="fas fa-exchange-alt"></i> Transfer Money</button>
           <button className="btn btn-success shadow-sm"><i className="fas fa-file-download"></i> Download Statement</button>
           <button className="btn btn-secondary shadow-sm"><i className="fas fa-user-plus"></i> Add Beneficiary</button>
-          <button className="btn custom-new shadow-sm" onClick={() => navigate("/account-req")}><i className="fas fa-user-plus"></i> New Account Request</button>
+          <button className="btn btn-warning shadow-sm" onClick={() => navigate("/account-req")}><i className="fas fa-user-plus"></i> New Account Request 👤➕</button>
       </div>
       </div>
 

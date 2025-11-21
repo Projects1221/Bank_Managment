@@ -19,6 +19,7 @@ public class AccountReqservice {
     private AccountReqRepo accountReqRepo;
     @Autowired
     UserRepository userRepository;
+    
     public ResponseEntity<?> createAccountReq(AccountRequest accountRequest) {
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
         User user=userRepository.findByEmail(email);
@@ -32,4 +33,6 @@ public class AccountReqservice {
             return new ResponseEntity<>("Request Not Submitted!", HttpStatus.BAD_REQUEST);
         }
     }
+
+    
 }
