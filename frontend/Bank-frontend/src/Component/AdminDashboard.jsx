@@ -1,7 +1,48 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import AdminNavbar from "./AdminNavbar";
+import { useNavigate } from "react-router-dom";
+import api from "./api/axios";
 
 export default function AdminDashboard() {
+
+  const fetchPendingRequests=async()=>{
+    try{
+const response = await api.get("/admin/pending-request", {headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`}});
+  console.log(response.data);  
+  setPendingRequests(response.data);
+    }catch{
+      alert("Error"+error.data);
+    
+    }
+  }
+
+  const rejectRequest=async(id)=>{
+    try{
+const response = await api.put("/admin/reject-request", {"id":id},{headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`}});
+  alert(response.data);  
+    }catch{
+      alert("Error"+error.data);
+    
+    }
+  }
+  const acceptRequest=async(id)=>{
+    try{
+const response = await api.put("/admin/accept-request", {"id":id},{headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`}});
+  alert(response.data);  
+    }catch{
+      alert("Error"+error.data);
+    
+    }
+  }
+  
+
+
+  useEffect(() => {
+    fetchPendingRequests();
+  }, []);
+
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const navigate = useNavigate();
   return (
     <>  <AdminNavbar/>
     <div className="container my-4">
@@ -49,25 +90,41 @@ export default function AdminDashboard() {
         <table className="table table-striped table-hover shadow-sm bg-white">
           <thead className="table-dark">
             <tr>
-              <th>Name</th>
+              <th>User Name</th>
               <th>Account Type</th>
+              <th>Occupation</th>
+              <th>Pan Number</th>
+              <th>Aadhatr Number</th>
               <th>Date</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Rakesh</td>
-              <td>Savings</td>
-              <td>14 Nov</td>
-              <td>Pending</td>
-              <td>
-                <button className="btn btn-success btn-sm">Approve</button>
-                <button className="btn btn-danger btn-sm">Reject</button>
-              </td>
-            </tr>
-          </tbody>
+              {pendingRequests.length > 0 ? (
+                pendingRequests.map((req) => (
+                  <tr key={req.id}>
+                    <td>{req.username || "Unknown"}</td>
+                    <td>{req.accountType}</td>
+                    <td>{req.occupation}</td>
+                    <td>{req.panNumber}</td>
+                    <td>{req.aadharNumber}</td>
+                    <td>{new Date(req.createdAt).toLocaleDateString()}</td>
+                    <td className="text-warning fw-bold">{req.request_status}</td>
+                    <td>
+                      <button className="btn btn-success btn-sm me-1" onClick={()=>{acceptRequest(req.id)}}>Approve</button>
+                      <button className="btn btn-danger btn-sm"onClick={()=>{rejectRequest(req.id)}}>Reject</button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center text-danger">
+                    No Pending Requests
+                  </td>
+                </tr>
+              )}
+            </tbody>
         </table>
       </div>
 
