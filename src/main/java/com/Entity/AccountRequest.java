@@ -23,6 +23,10 @@ public class AccountRequest {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @Transient
+    public String getUsername() {
+        return user != null ? user.getUsername() : null;
+    }
     private String accountType;
     private String address;
     private Date dob;
